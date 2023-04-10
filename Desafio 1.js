@@ -18,10 +18,10 @@ function createProduct(title, description, thumbnail, code, stock) {
 }
 
 // Ejemplo de uso:
-const myObject = createProduct('value1', 'value2', 'value3', 'value4');
+const myObject = createProduct('value1', 'value2', 'value3', 'value4', '22');
 console.log(myObject); // { id: 1, prop1: 'value1', prop2: 'value2', prop3: 'value3', prop4: 'value4' }
 
-const anotherProduct = createProduct('foo', 'bar', 'baz', 'qux');
+const anotherProduct = createProduct('foo', 'bar', 'baz', 'qux', '27');
 console.log(anotherObject); // { id: 2, prop1: 'foo', prop2: 'bar', prop3: 'baz', prop4: 'qux' }
 
 // Error porque no tiene todos los valores
