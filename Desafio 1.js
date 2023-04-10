@@ -1,28 +1,53 @@
-let id = 0;
-
-function createProduct(title, description, thumbnail, code, stock) {
-    if (!title || !description || !thumbnail || !code || !stock) {
-        throw new Error('Todas las propiedades son necesarias');
+class productManager {
+    constructor(){
+        this.products = []
     }
 
-    const prod = {
-        id: ++id,
-        title: title,
-        description: description,
-        thumbnail: thumbnail,
-        code: code,
-        stock: stock,    
-    };
-    
-    return prod;
+    #setId = () => this.products.length + 1;
+
+    #isCodeInUse = (code) => this.products.find(product => product.code === code); 
+
+    addProduct(title, description, price, thumbnail, code, stock){
+        if (!title || !description || !price || !thumbnail || !code || !stock){
+            console.log('No se pueden dejar campos vacíos al agregar un nuevo producto.')
+        }else if (this.#isCodeInUse(code)) console.log('No se pueden ingresar dos productos con el mismo code.')
+        else{
+            const product = {
+                id: this.#setId(),
+                title,
+                description,
+                price,
+                thumbnail,
+                code,
+                stock
+            }
+            this.products.push(product)
+        }
+    }
+
+    getProducts(){
+        console.log(this.products)
+    }
+
+    getProductById(id){
+        const productFound = this.products.find(product => product.id === id);
+        if (!productFound) console.log('Error. Not found.')
+        else console.log(productFound)
+    }
 }
 
-// Ejemplo de uso:
-const myProd = createProduct('value1', 'value2', 'value3', 'value4', '22');
-console.log(myProd); // { id: 1, title: 'value1', description: 'value2', thumbnail: 'value3', code: 'value4', stock: '22' }
+//              *****************************TESTEO*****************************             
 
-const anotherProduct = createProduct('foo', 'bar', 'baz', 'qux', '27');
-console.log(anotherProduct); // { id: 2, title: 'foo', description: 'bar', thumbnail: 'baz', code: 'qux', stock: '27' }
+const productManagerTester = new productManager();
 
-// Error porque no tiene todos los valores
-createProduct('value1', 'value2', 'value3');
+productManagerTester.getProducts();
+
+productManagerTester.addProduct('producto prueba', 'prod de prueba', 200, 'sin imagen', 'abc123', 25);
+
+productManagerTester.getProducts();
+
+productManagerTester.addProduct('producto prueba', 'prod de prueba', 200, 'sin imagen', 'abc123', 25);
+
+productManagerTester.getProductById(1);
+
+productManagerTester.getProductById(7);
